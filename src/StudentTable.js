@@ -83,9 +83,9 @@ function StudentTable() {
   }, [])
   async function getData(){
       
-      //const alldata = await axios.get('http://localhost:9000/student/getall',{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
+      const alldata = await axios.get('http://localhost:9000/student/getall',{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
 
-      const alldata = await axios.get('http://localhost:9000/student/getall')
+      //const alldata = await axios.get('http://localhost:9000/student/getall')
       
       setData(alldata.data)
     
@@ -118,7 +118,7 @@ function StudentTable() {
       errorList.push("Please enter a valid email")
     }
     if(errorList.length < 1){
-      api.post("/update", newData)
+      api.post("/update", newData, {headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
       .then(res => {
         const dataUpdate = [...data];
         const index = oldData.tableData.id;
@@ -161,7 +161,7 @@ function StudentTable() {
     newData.userId= 2
     newData.id = 6
     if(errorList.length < 1){ //no error
-      api.post("/create", newData)
+      api.post("/create", newData,{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
       .then(res => {
         let dataToAdd = [...data];
         dataToAdd.push(newData);
@@ -187,7 +187,7 @@ function StudentTable() {
 
   const handleRowDelete = (oldData, resolve) => {
     //api.get("/delete/"+oldData.id,{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
-    api.delete("/delete/"+oldData.id)
+    api.delete("/delete/"+oldData.id,{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
       .then(res => {
         const dataDelete = [...data];
         const index = oldData.tableData.id;

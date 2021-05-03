@@ -77,8 +77,8 @@ function UniversityTable() {
     getData();
   }, [])
   async function getData(){
-    //const alldata = await axios.get('http://localhost:9000/university/getbyidbyuser',{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
-    const alldata = await axios.get('http://localhost:9000/university/getall')
+    const alldata = await axios.get('http://localhost:9000/university/getall',{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
+    //const alldata = await axios.get('http://localhost:9000/university/getall')
     
     //console.log(alldata.data)
     setData(alldata.data)
@@ -93,7 +93,7 @@ function UniversityTable() {
     }
     //  api.post("/update", newData,{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
     if(errorList.length < 1){
-      api.post("/update", newData)
+      api.post("/update", newData,{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
       .then(res => {
         const dataUpdate = [...data];
         const index = oldData.tableData.id;
@@ -128,7 +128,7 @@ function UniversityTable() {
     newData.id = 4
 
     if(errorList.length < 1){ //no error
-      api.post("/create", newData)
+      api.post("/create", newData,{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
       .then(res => {
         let dataToAdd = [...data];
         dataToAdd.push(newData);
@@ -154,7 +154,7 @@ function UniversityTable() {
 
   const handleRowDelete = (oldData, resolve) => {
     
-    api.delete("/delete/"+oldData.id)
+    api.delete("/delete/"+oldData.id,{headers : {Authorization:`Bearer ${Cookies.get("user")}`}})
       .then(res => {
         const dataDelete = [...data];
         const index = oldData.tableData.id;
